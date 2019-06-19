@@ -12,6 +12,7 @@ require "action_view/railtie"
 # require "action_cable/engine"
 # require "sprockets/railtie"
 require "rails/test_unit/railtie"
+require "singleton"
 
 Bundler.require(*Rails.groups)
 require "et_exporter"
@@ -30,6 +31,37 @@ module Dummy
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    def event_service
+      EventService.instance
+    end
+  end
+  
+  class EventService
+    include Singleton
+    
+    def subscribe(event, handler, async:, in_process:)
+      add event, handler, async: async, in_process: in_process
+    end
+    
+    def publish(event, *args)
+      handler_defs = subscriptions[event]
+      return if handler_defs.empty?
+      
+      handler_defs.each do |handler_def|
+        handler_def[:handler].new.handle(*args)
+      end
+    end
+    
+    private
+    
+    def add(event, handler, async:, in_process:)
+      subscriptions[event] ||= []
+      subscriptions[event] << {handler: handler, async: async, in_process: in_process}
+    end
+    
+    def subscriptions
+      @subscriptions ||= {}
+    end
   end
 end
 
