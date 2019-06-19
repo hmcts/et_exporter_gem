@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 5.2.3"
   spec.add_dependency 'jbuilder', '~> 2.9', '>= 2.9.1'
-
-  spec.add_development_dependency "pg"
+  
+  spec.add_dependency "pg"
+  spec.add_development_dependency 'rspec-rails', '~> 3.8', '>= 3.8.2'
 end
