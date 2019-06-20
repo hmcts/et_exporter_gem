@@ -4,6 +4,7 @@ FactoryBot.define do
       number_of_claimants { 1 }
       number_of_respondents { 1 }
       has_representative { true }
+      secondary_claimant_traits { [:default] }
     end
     
     secondary_respondents { [] }
@@ -39,7 +40,7 @@ FactoryBot.define do
     after(:build) do |claim, evaluator|
       claim.primary_claimant = build(:claimant, :default) if claim.primary_claimant.blank? && evaluator.number_of_claimants > 0
       claim.primary_respondent = build(:respondent, :default) if claim.primary_respondent.blank? && evaluator.number_of_respondents > 0
-      claim.secondary_claimants.concat build_list(:claimant, [evaluator.number_of_claimants - 1, 0].max, :default)
+      claim.secondary_claimants.concat build_list(:claimant, [evaluator.number_of_claimants - 1, 0].max, *evaluator.secondary_claimant_traits)
       claim.secondary_respondents.concat build_list(:respondent, [evaluator.number_of_respondents - 1, 0].max, :default)
       claim.claimant_count += evaluator.number_of_claimants
       claim.primary_representative = build(:representative, :default) if claim.primary_representative.blank? && evaluator.has_representative
