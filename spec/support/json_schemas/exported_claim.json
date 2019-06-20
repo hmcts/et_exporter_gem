@@ -33,7 +33,7 @@
       "jurisdiction", "office_code", "date_of_receipt", "other_known_claimant_names", "discrimination_claims",
       "pay_claims", "desired_outcomes", "other_claim_details", "claim_details", "other_outcome", "send_claim_to_whistleblowing_entity",
       "miscellaneous_information", "employment_details", "is_unfair_dismissal", "secondary_claimants", "secondary_respondents",
-      "primary_claimant", "primary_respondent", "uploaded_files"],
+      "primary_claimant", "primary_respondent", "primary_representative", "uploaded_files"],
       "additionalProperties": false,
       "properties": {
         "reference": {"type": "string","pattern": "\\d{12}"},
@@ -58,6 +58,7 @@
         "secondary_respondents": {"type": "array", "items": {"$ref": "#/definitions/respondent"}},
         "primary_claimant": {"$ref": "#/definitions/claimant"},
         "primary_respondent": {"$ref": "#/definitions/respondent"},
+        "primary_representative": {"oneOf": [{"$ref": "#/definitions/representative"}, {"type": "null"}]},
         "uploaded_files": {"type": "array", "items": {"$ref": "#/definitions/uploaded_file"}},
         "employment_details": {"oneOf": [{"$ref": "#/definitions/employment_details"}, {"$ref": "#/definitions/empty_employment_details"}]}
       }
@@ -93,6 +94,15 @@
         "tribunal_recommendation",
         "reinstated_employment_and_compensation",
         "new_employment_and_compensation"
+      ]
+    },
+    "acas_exemption_code": {
+      "type": "string",
+      "enum": [
+        "joint_claimant_has_acas_number",
+        "acas_has_no_jurisdiction",
+        "employer_contacted_acas",
+        "interim_relief"
       ]
     },
     "employment_details": {
@@ -139,7 +149,7 @@
         "address_telephone_number": {"type": "string"},
         "mobile_number": {"type": "string"},
         "email_address": {"type": "string"},
-        "contact_preference": {"type": "string", "enum": ["Email", "Post"]},
+        "contact_preference": {"type": "string", "enum": ["email", "post"]},
         "gender": {"type": "string", "enum": ["Male", "Female", "N/K"]},
         "date_of_birth": {"$ref": "#/definitions/date"},
         "fax_number": {"type": ["null", "string"]},
@@ -160,19 +170,37 @@
         "work_address_telephone_number": {"type": "string"},
         "address_telephone_number": {"type": "string"},
         "alt_phone_number": {"type": "string"},
-        "contact": {"type": "string"},
-        "dx_number": {"type": "string"},
-        "contact_preference": {"type": "string", "enum": ["email", "post"]},
-        "email_address": {"type": "string"},
-        "fax_number": {"type": "string"},
+        "contact": {"type": ["null", "string"]},
+        "dx_number": {"type": ["string", "null"]},
+        "contact_preference": {"oneOf": [{"type": "string", "enum": ["email", "post"]}, {"type": "null"}]},
+        "email_address": {"type": ["string", "null"]},
+        "fax_number": {"type": ["string", "null"]},
         "organisation_employ_gb": {"type": ["null", "number"]},
-        "organisation_more_than_one_site": {"type": "boolean"},
+        "organisation_more_than_one_site": {"type": ["boolean", "null"]},
         "employment_at_site_number": {"type": ["null", "number"]},
-        "disability": {"type": "boolean"},
-        "disability_information": {"type": "string"},
+        "disability": {"type": ["boolean", "null"]},
+        "disability_information": {"type": ["string", "null"]},
         "acas_certificate_number": {"type": ["string", "null"]},
-        "acas_exemption_code": {"type": ["null", "string"]},
+        "acas_exemption_code": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/acas_exemption_code"}]},
         "work_address": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/address"}]}
+      }
+    },
+    "representative": {
+      "type": "object",
+      "required": ["name", "organisation_name", "address", "address_telephone_number", "mobile_number", "email_address",
+      "representative_type", "dx_number", "reference", "contact_preference", "fax_number"],
+      "properties": {
+        "name": {"type": "string"},
+        "organisation_name": {"type": "string"},
+        "address": {"$ref": "#/definitions/address"},
+        "address_telephone_number": {"type": "string"},
+        "mobile_number": {"type": "string"},
+        "email_address": {"type": "string"},
+        "representative_type": {"type": "string", "enum": ["CAB", "FRU", "Law Centre", "Union", "Solicitor", "Private Individual", "Trade Association", "Other"]},
+        "dx_number": {"type": "string"},
+        "reference": {"type": "string"},
+        "contact_preference": {"type": "string", "enum": ["email", "post", "fax"]},
+        "fax_number": {"type": "string"}
       }
     },
     "address": {

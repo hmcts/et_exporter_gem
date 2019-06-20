@@ -4,7 +4,7 @@ FactoryBot.define do
     address
     association :work_address, factory: :address
 
-    trait :example_data do
+    trait :default do
       name { 'Respondent Name' }
       contact { 'Respondent Contact Name' }
       association :address,
@@ -26,6 +26,19 @@ FactoryBot.define do
         county: 'Greater London',
         post_code: 'SW1H 9ST'
       alt_phone_number { '03333 423554' }
+      contact_preference { 'email' }
+      email_address { nil }
+      dx_number { nil }
+      fax_number { nil }
+      organisation_employ_gb { nil }
+      organisation_more_than_one_site { nil }
+      employment_at_site_number { nil }
+      disability_information { nil }
+      disability { nil }
+    end
+    
+    trait :full_from_et3 do
+      default
       contact_preference { 'email' }
       email_address { 'john@dodgyco.com' }
       dx_number { 'dx1234567890' }

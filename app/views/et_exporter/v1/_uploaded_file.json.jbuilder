@@ -1,1 +1,1 @@
-json.(uploaded_filename, :filename, :url)
+json.(uploaded_file, :filename, :url)
