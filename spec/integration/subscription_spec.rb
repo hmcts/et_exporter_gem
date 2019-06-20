@@ -119,6 +119,30 @@ RSpec.describe 'Event Subscription - hook into main system' do
     end
   end
 
+  context 'A claim with a multiple partial claimants from spreadsheet, single respondent and representative.  With employment details' do
+    let(:claim) { build(:claim, :default, number_of_claimants: 2, secondary_claimant_traits: [:minimal]) }
+    let(:system) { build(:external_system, :ccd) }
+    let(:export) { build(:export, external_system: system, resource: claim) }
+    it 'provides json matching the schema as the single argument' do
+      # Act - publish the event as the application would
+      Rails.application.event_service.publish('ClaimQueuedForExport', export)
+    
+      # Assert - Ensure the json data matches the schema
+      expect(Sidekiq::Worker.jobs.first['args'].first).to match_json_schema('exported_claim')
+    end
+
+    it 'has 1 secondary claimants and no secondary respondents' do
+      # Act - publish the event as the application would
+      Rails.application.event_service.publish('ClaimQueuedForExport', export)
+  
+      # Assert - Ensure the json is correct
+      aggregate_failures 'validate secondaries' do
+        expect(JSON.parse(Sidekiq::Worker.jobs.first['args'].first).dig('resource', 'secondary_claimants').length).to be 1
+        expect(JSON.parse(Sidekiq::Worker.jobs.first['args'].first).dig('resource', 'secondary_respondents').length).to be 0
+      end
+    end
+  end
+
   # Vary the employment details
   context 'A claim with a single claimant, respondent and representative.  Without employment details' do
     let(:claim) { build(:claim, :default, :without_employment_details) }

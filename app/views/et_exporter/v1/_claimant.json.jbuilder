@@ -3,4 +3,4 @@ json.(claimant, :gender, :mobile_number, :special_needs, :title)
 json.address do
   json.partial! "et_exporter/v1/address.json.jbuilder", address: claimant.address
 end
-json.contact_preference claimant.contact_preference.underscore
+json.contact_preference claimant.contact_preference&.underscore

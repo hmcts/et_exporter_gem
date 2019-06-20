@@ -54,7 +54,7 @@
         "send_claim_to_whistleblowing_entity": {"type": ["boolean", "null"]},
         "miscellaneous_information": {"type": ["string", "null"]},
         "is_unfair_dismissal": {"type": ["null", "boolean"]},
-        "secondary_claimants": {"type": "array", "items": {"$ref": "#/definitions/claimant"}},
+        "secondary_claimants": {"type": "array", "items": {"$ref": "#/definitions/secondary_claimant"}},
         "secondary_respondents": {"type": "array", "items": {"$ref": "#/definitions/respondent"}},
         "primary_claimant": {"$ref": "#/definitions/claimant"},
         "primary_respondent": {"$ref": "#/definitions/respondent"},
@@ -151,6 +151,25 @@
         "email_address": {"type": "string"},
         "contact_preference": {"type": "string", "enum": ["email", "post"]},
         "gender": {"type": "string", "enum": ["Male", "Female", "N/K"]},
+        "date_of_birth": {"$ref": "#/definitions/date"},
+        "fax_number": {"type": ["null", "string"]},
+        "special_needs": {"type": ["null", "string"]}
+      }
+    },
+    "secondary_claimant": {
+      "type": "object",
+      "required": ["title", "first_name", "last_name", "address"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {"type": "string", "enum": ["Mr", "Mrs", "Miss", "Ms"]},
+        "first_name": {"type": "string"},
+        "last_name": {"type": "string"},
+        "address": {"$ref": "#/definitions/address"},
+        "address_telephone_number": {"type": ["string", "null"]},
+        "mobile_number": {"type": ["string", "null"]},
+        "email_address": {"type": ["string", "null"]},
+        "contact_preference": {"oneOf": [{"type": "string", "enum": ["email", "post"]}, {"type": "null"}]},
+        "gender": {"oneOf": [{"type": "string", "enum": ["Male", "Female", "N/K"]}, {"type": "null"}]},
         "date_of_birth": {"$ref": "#/definitions/date"},
         "fax_number": {"type": ["null", "string"]},
         "special_needs": {"type": ["null", "string"]}
