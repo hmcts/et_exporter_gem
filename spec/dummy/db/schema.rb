@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_06_18_153701) do
     t.string "county"
     t.string "string"
     t.string "post_code"
+    t.string "country", null: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
