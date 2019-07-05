@@ -145,7 +145,7 @@
         "title": {"type": "string", "enum": ["Mr", "Mrs", "Miss", "Ms"]},
         "first_name": {"type": "string"},
         "last_name": {"type": "string"},
-        "address": {"$ref": "#/definitions/address"},
+        "address": {"$ref": "#/definitions/address_with_country"},
         "address_telephone_number": {"type": "string"},
         "mobile_number": {"type": "string"},
         "email_address": {"type": "string"},
@@ -232,6 +232,19 @@
         "locality": {"type": "string"},
         "county": {"type": "string"},
         "post_code": {"type": "string"}
+      }
+    },
+    "address_with_country": {
+      "type": "object",
+      "required": ["building", "street", "locality", "county", "post_code", "country"],
+      "additionalProperties": false,
+      "properties": {
+        "building": {"type": "string"},
+        "street": {"type": "string"},
+        "locality": {"type": "string"},
+        "county": {"type": "string"},
+        "post_code": {"type": "string"},
+        "country": {"type": ["string", "null"]}
       }
     },
     "uploaded_file": {

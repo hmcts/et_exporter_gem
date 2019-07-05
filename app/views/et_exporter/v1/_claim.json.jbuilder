@@ -10,7 +10,7 @@ else
   json.employment_details({})
 end
 json.primary_claimant do
-  json.partial! "et_exporter/v1/claimant.json.jbuilder", claimant: claim.primary_claimant
+  json.partial! "et_exporter/v1/primary_claimant.json.jbuilder", claimant: claim.primary_claimant
 end
 json.secondary_claimants do
   json.partial! "et_exporter/v1/claimant.json.jbuilder", collection: claim.secondary_claimants, as: :claimant

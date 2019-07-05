@@ -23,5 +23,16 @@ FactoryBot.define do
                   post_code: 'SW1H 9AJ'
       date_of_birth { Date.parse('21/11/1982') }
     end
+
+    trait :with_uk_country do
+      association :address,
+                  building: '102',
+                  street: 'Petty France',
+                  locality: 'London',
+                  county: 'Greater London',
+                  post_code: 'SW1H 9AJ',
+                  country: 'United Kingdom'
+    end
+
   end
 end
