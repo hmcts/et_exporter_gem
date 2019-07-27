@@ -249,11 +249,12 @@
     },
     "uploaded_file": {
       "type": "object",
-      "required": ["filename", "url"],
+      "required": ["filename", "url", "content_type"],
       "additionalProperties": false,
       "properties": {
         "filename": {"type": "string"},
-        "url": {"type": "string"}
+        "url": {"type": "string"},
+        "content_type": {"type": "string"}
       }
     },
     "date": {
