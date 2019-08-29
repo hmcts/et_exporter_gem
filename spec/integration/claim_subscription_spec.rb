@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe 'Event Subscription - hook into main system' do
+RSpec.describe 'Claim Event Subscription - hook into main system' do
   before { Sidekiq::Worker.clear_all }
   
   it 'enqueues the correct worker class' do

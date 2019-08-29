@@ -223,6 +223,56 @@ ActiveRecord::Schema.define(version: 2019_06_18_153701) do
     t.string "import_from_key"
   end
 
+  create_table "response_uploaded_files", force: :cascade do |t|
+    t.bigint "response_id"
+    t.bigint "uploaded_file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["response_id"], name: "index_response_uploaded_files_on_response_id"
+    t.index ["uploaded_file_id"], name: "index_response_uploaded_files_on_uploaded_file_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.bigint "respondent_id"
+    t.bigint "representative_id"
+    t.datetime "date_of_receipt"
+    t.string "reference"
+    t.string "case_number"
+    t.string "claimants_name"
+    t.boolean "agree_with_early_conciliation_details"
+    t.string "disagree_conciliation_reason"
+    t.boolean "agree_with_employment_dates"
+    t.date "employment_start"
+    t.date "employment_end"
+    t.string "disagree_employment"
+    t.boolean "continued_employment"
+    t.boolean "agree_with_claimants_description_of_job_or_title"
+    t.string "disagree_claimants_job_or_title"
+    t.boolean "agree_with_claimants_hours"
+    t.decimal "queried_hours", precision: 5, scale: 2
+    t.boolean "agree_with_earnings_details"
+    t.decimal "queried_pay_before_tax", precision: 8, scale: 2
+    t.string "queried_pay_before_tax_period"
+    t.decimal "queried_take_home_pay", precision: 8, scale: 2
+    t.string "queried_take_home_pay_period"
+    t.boolean "agree_with_claimant_notice"
+    t.string "disagree_claimant_notice_reason"
+    t.boolean "agree_with_claimant_pension_benefits"
+    t.string "disagree_claimant_pension_benefits_reason"
+    t.boolean "defend_claim"
+    t.string "defend_claim_facts"
+    t.boolean "make_employer_contract_claim"
+    t.string "claim_information"
+    t.string "email_receipt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "pdf_template_reference", null: false
+    t.string "email_template_reference", null: false
+    t.index ["representative_id"], name: "index_responses_on_representative_id"
+    t.index ["respondent_id"], name: "index_responses_on_respondent_id"
+  end
+
+
   add_foreign_key "claim_claimants", "claimants"
   add_foreign_key "claim_claimants", "claims"
   add_foreign_key "claim_representatives", "claims"
@@ -236,4 +286,6 @@ ActiveRecord::Schema.define(version: 2019_06_18_153701) do
   add_foreign_key "representatives", "addresses"
   add_foreign_key "respondents", "addresses"
   add_foreign_key "respondents", "addresses", column: "work_address_id"
+  add_foreign_key "response_uploaded_files", "responses"
+  add_foreign_key "response_uploaded_files", "uploaded_files"
 end
