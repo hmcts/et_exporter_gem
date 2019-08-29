@@ -27,5 +27,34 @@ RSpec.describe 'Response Event Subscription - hook into main system' do
       expect(Sidekiq::Worker.jobs.first['args'].first).to match_json_schema('exported_response')
     end
 
+    it 'has a nil representative' do
+      # Act - publish the event as the application would
+      Rails.application.event_service.publish('ResponseQueuedForExport', export)
+
+      # Assert - Ensure the json data matches the schema
+      expect(JSON.parse(Sidekiq::Worker.jobs.first['args'].first).dig('resource', 'representative')).to be_nil
+    end
+  end
+
+  context 'A response with a respondent and a representative' do
+    let(:response) { build(:response, :default, :with_representative) }
+    let(:system) { build(:external_system, :ccd) }
+    let(:export) { build(:export, external_system: system, resource: response) }
+    it 'provides json matching the schema as the single argument' do
+      # Act - publish the event as the application would
+      Rails.application.event_service.publish('ResponseQueuedForExport', export)
+
+      # Assert - Ensure the json data matches the schema
+      expect(Sidekiq::Worker.jobs.first['args'].first).to match_json_schema('exported_response')
+    end
+
+    it 'has a representative' do
+      # Act - publish the event as the application would
+      Rails.application.event_service.publish('ResponseQueuedForExport', export)
+
+      # Assert - Ensure the json data matches the schema
+      expect(JSON.parse(Sidekiq::Worker.jobs.first['args'].first).dig('resource', 'representative')).to be_present
+    end
+
   end
 end

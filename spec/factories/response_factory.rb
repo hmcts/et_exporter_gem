@@ -38,7 +38,7 @@ FactoryBot.define do
     association :respondent
 
     trait :with_representative do
-      association :representative, :example_data
+      association :representative, :default
     end
 
     trait :without_representative do
