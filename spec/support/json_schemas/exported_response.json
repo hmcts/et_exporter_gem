@@ -86,11 +86,13 @@
         "defend_claim_facts",
         "make_employer_contract_claim",
         "claim_information",
-        "email_receipt"
+        "email_receipt",
+        "uploaded_files"
       ],
       "properties": {
         "respondent": {"$ref":  "#/definitions/respondent"},
         "representative": {"$ref":  "#/definitions/representative"},
+        "uploaded_files": {"type": "array", "items": {"$ref": "#/definitions/uploaded_file"}},
         "date_of_receipt": {"$ref": "#/definitions/date"},
         "reference": {"type": "string"},
         "case_number": {"type": "string"},
