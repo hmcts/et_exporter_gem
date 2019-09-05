@@ -12,3 +12,6 @@ if response.representative.present?
 else
   json.representative nil
 end
+json.uploaded_files do
+  json.partial! "et_exporter/v1/uploaded_file.json.jbuilder", collection: response.uploaded_files, as: :uploaded_file
+end
