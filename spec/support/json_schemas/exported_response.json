@@ -1,0 +1,191 @@
+{
+  "id": "file:/exported_response.json#",
+  "type": "object",
+  "required": [
+    "resource_type",
+    "external_system",
+    "resource"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "external_system": {
+      "description": "An external system to export to",
+      "example": {},
+      "type": "object",
+      "required": ["name", "reference", "office_codes", "enabled", "configurations"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string"},
+        "reference": {"type": "string"},
+        "office_codes": {"type": "array", "items":  {"type":  "number"}},
+        "enabled": {"type": "boolean"},
+        "configurations": {"type": "array", "items": {"$ref":  "#/definitions/external_system_config"}}
+      }
+    },
+    "external_system_config": {
+      "type": "object",
+      "required": ["key", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "key": {"type": "string"},
+        "value": {"type": "string"}
+      }
+    },
+    "address": {
+      "type": "object",
+      "required": ["building", "street", "locality", "county", "post_code"],
+      "additionalProperties": false,
+      "properties": {
+        "building": {"type": "string"},
+        "street": {"type": "string"},
+        "locality": {"type": "string"},
+        "county": {"type": "string"},
+        "post_code": {"type": "string"}
+      }
+    },
+    "uploaded_file": {
+      "type": "object",
+      "required": ["filename", "url", "content_type"],
+      "additionalProperties": false,
+      "properties": {
+        "filename": {"type": "string"},
+        "url": {"type": "string"},
+        "content_type": {"type": "string"}
+      }
+    },
+    "response": {
+      "type": "object",
+      "required": [
+        "respondent",
+        "representative",
+        "date_of_receipt",
+        "reference",
+        "case_number",
+        "claimants_name",
+        "agree_with_early_conciliation_details",
+        "disagree_conciliation_reason",
+        "agree_with_employment_dates",
+        "employment_start",
+        "employment_end",
+        "disagree_employment",
+        "continued_employment",
+        "agree_with_claimants_description_of_job_or_title",
+        "disagree_claimants_job_or_title",
+        "agree_with_claimants_hours",
+        "queried_hours",
+        "agree_with_earnings_details",
+        "queried_pay_before_tax",
+        "queried_pay_before_tax_period",
+        "queried_take_home_pay",
+        "queried_take_home_pay_period",
+        "agree_with_claimant_notice",
+        "disagree_claimant_notice_reason",
+        "agree_with_claimant_pension_benefits",
+        "disagree_claimant_pension_benefits_reason",
+        "defend_claim",
+        "defend_claim_facts",
+        "make_employer_contract_claim",
+        "claim_information",
+        "email_receipt",
+        "uploaded_files"
+      ],
+      "properties": {
+        "respondent": {"$ref":  "#/definitions/respondent"},
+        "representative": {"$ref":  "#/definitions/representative"},
+        "uploaded_files": {"type": "array", "items": {"$ref": "#/definitions/uploaded_file"}},
+        "date_of_receipt": {"$ref": "#/definitions/date"},
+        "reference": {"type": "string"},
+        "case_number": {"type": "string"},
+        "claimants_name": {"type": "string"},
+        "agree_with_early_conciliation_details": {"type": ["boolean", "null"]},
+        "disagree_conciliation_reason": {"type": "string"},
+        "agree_with_employment_dates": {"type": "boolean"},
+        "employment_start": {"$ref": "#/definitions/date"},
+        "employment_end": {"$ref": "#/definitions/date"},
+        "disagree_employment": {"type": "string"},
+        "continued_employment": {"type": ["boolean", "null"]},
+        "agree_with_claimants_description_of_job_or_title": {"type": "boolean"},
+        "disagree_claimants_job_or_title": {"type": ["string", "null"]},
+        "agree_with_claimants_hours": {"type": "boolean"},
+        "queried_hours": {"type": "number"},
+        "agree_with_earnings_details": {"type": "boolean"},
+        "queried_pay_before_tax": {"type": "number"},
+        "queried_pay_before_tax_period": {"type": "string"},
+        "queried_take_home_pay": {"type": "number"},
+        "queried_take_home_pay_period": {"type": "string"},
+        "agree_with_claimant_notice": {"type": "boolean"},
+        "disagree_claimant_notice_reason": {"type": "string"},
+        "agree_with_claimant_pension_benefits": {"type": "boolean"},
+        "disagree_claimant_pension_benefits_reason": {"type": "string"},
+        "defend_claim": {"type": "boolean"},
+        "defend_claim_facts": {"type": "string"},
+        "make_employer_contract_claim": {"type": ["boolean", "null"]},
+        "claim_information": {"type": "string"},
+        "email_receipt": {"type": ["string", "null"]}
+      }
+    },
+    "respondent": {
+      "type": "object",
+      "required": ["name", "address", "work_address_telephone_number", "address_telephone_number",
+        "work_address", "alt_phone_number", "contact", "dx_number", "contact_preference",
+        "email_address", "fax_number", "organisation_employ_gb", "organisation_more_than_one_site",
+        "employment_at_site_number", "disability", "disability_information", "acas_certificate_number",
+        "acas_exemption_code"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string"},
+        "address": {"$ref": "#/definitions/address"},
+        "work_address_telephone_number": {"type": "null"},
+        "address_telephone_number": {"type": ["string", "null"]},
+        "alt_phone_number": {"type": ["string", "null"]},
+        "contact": {"type": ["null", "string"]},
+        "dx_number": {"type": ["string", "null"]},
+        "contact_preference": {"oneOf": [{"type": "string", "enum": ["email", "post"]}, {"type": "null"}]},
+        "email_address": {"type": ["string", "null"]},
+        "fax_number": {"type": ["string", "null"]},
+        "organisation_employ_gb": {"type": ["null", "number"]},
+        "organisation_more_than_one_site": {"type": ["boolean", "null"]},
+        "employment_at_site_number": {"type": ["null", "number"]},
+        "disability": {"type": "null"},
+        "disability_information": {"type": "null"},
+        "acas_certificate_number": {"type": "null"},
+        "acas_exemption_code": {"type": "null"},
+        "work_address": {"oneOf": [{"type": "null"}, {"$ref": "#/definitions/address"}]}
+      }
+    },
+    "representative": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["name", "organisation_name", "address", "address_telephone_number", "mobile_number", "email_address",
+            "representative_type", "dx_number", "reference", "contact_preference", "fax_number"],
+          "properties": {
+            "name": {"type": "string"},
+            "organisation_name": {"type": "string"},
+            "address": {"$ref": "#/definitions/address"},
+            "address_telephone_number": {"type": "string"},
+            "mobile_number": {"type": "string"},
+            "email_address": {"type": "string"},
+            "representative_type": {"type": "string", "enum": ["CAB", "FRU", "Law Centre", "Union", "Solicitor", "Private Individual", "Trade Association", "Other"]},
+            "dx_number": {"type": "string"},
+            "reference": {"type": "string"},
+            "contact_preference": {"type": "string", "enum": ["email", "post", "fax"]},
+            "fax_number": {"type": "string"}
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "date": {
+      "type": "string",
+      "pattern": "\\d{4}-\\d{2}-\\d{2}"
+    }
+  },
+  "properties": {
+    "resource_type": { "type": "string", "enum": ["Response"] },
+    "external_system": { "$ref": "#/definitions/external_system" },
+    "resource": { "$ref": "#/definitions/response"}
+  }
+}
