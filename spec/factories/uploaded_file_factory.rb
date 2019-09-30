@@ -33,6 +33,7 @@ FactoryBot.define do
       attrs[:io] = File.open(attrs[:filename], 'r')
       attrs[:filename] = File.basename(attrs[:filename])
       uploaded_file.file = attrs
+      uploaded_file.save
     ensure
       attrs[:io].close unless attrs[:io].nil?
     end

@@ -1,7 +1,7 @@
 {
   "id": "file:/exported_claim.json#",
   "type": "object",
-  "required": ["resource_type", "external_system", "resource"],
+  "required": ["resource_type", "external_system", "resource", "id"],
   "additionalProperties": false,
   "definitions": {
     "external_system": {
@@ -263,6 +263,10 @@
     }
   },
   "properties": {
+    "id": {
+      "description": "Unique id of the export",
+      "type": "number"
+    },
     "resource_type": { "type": "string", "enum": ["Claim"] },
     "external_system": { "$ref": "#/definitions/external_system" },
     "resource": { "$ref": "#/definitions/claim"}
