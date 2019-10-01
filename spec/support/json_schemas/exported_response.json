@@ -13,12 +13,13 @@
       "description": "An external system to export to",
       "example": {},
       "type": "object",
-      "required": ["name", "reference", "office_codes", "enabled", "configurations"],
+      "required": ["name", "reference", "office_codes", "export_feedback_queue", "enabled", "configurations"],
       "additionalProperties": false,
       "properties": {
         "name": {"type": "string"},
         "reference": {"type": "string"},
         "office_codes": {"type": "array", "items":  {"type":  "number"}},
+        "export_feedback_queue": { "type": "string" },
         "enabled": {"type": "boolean"},
         "configurations": {"type": "array", "items": {"$ref":  "#/definitions/external_system_config"}}
       }

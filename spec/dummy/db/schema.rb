@@ -166,6 +166,9 @@ ActiveRecord::Schema.define(version: 2019_06_18_153701) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "export_queue"
+    t.boolean "export_claims", default: false
+    t.boolean "export_responses", default: false, null: false
+    t.string "export_feedback_queue", default: "default", null: false
     t.boolean "export", default: false
     t.index ["reference"], name: "index_external_systems_on_reference", unique: true
   end

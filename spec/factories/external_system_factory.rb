@@ -6,7 +6,9 @@ FactoryBot.define do
       reference { "atos" }
       office_codes { [] }
       enabled { true }
-      export { false }
+      export_claims { false }
+      export_responses { false }
+      export_feedback_queue { 'feedback_queue' }
     end
 
     trait :minimal do
@@ -14,7 +16,9 @@ FactoryBot.define do
       sequence(:reference) { |idx| "reference#{idx}" }
       office_codes { [] }
       enabled { true }
-      export { false }
+      export_claims { false }
+      export_responses { false }
+      export_feedback_queue { 'feedback_queue' }
     end
     
     trait :ccd do
@@ -22,7 +26,9 @@ FactoryBot.define do
       reference { "ccd_manchester" }
       office_codes { [] }
       enabled { true }
-      export { true }
+      export_claims { true }
+      export_responses { true }
+      export_feedback_queue { 'feedback_queue' }
       export_queue { 'external_system_ccd' }
       configurations do
         [

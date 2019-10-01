@@ -8,13 +8,14 @@
       "description": "An external system to export to",
       "example": {},
       "type": "object",
-      "required": ["name", "reference", "office_codes", "enabled", "configurations"],
+      "required": ["name", "reference", "office_codes", "enabled", "configurations", "export_feedback_queue"],
       "additionalProperties": false,
       "properties": {
         "name": {"type": "string"},
         "reference": {"type": "string"},
         "office_codes": {"type": "array", "items":  {"type":  "number"}},
         "enabled": {"type": "boolean"},
+        "export_feedback_queue": { "type": "string" },
         "configurations": {"type": "array", "items": {"$ref":  "#/definitions/external_system_config"}}
       }
     },
