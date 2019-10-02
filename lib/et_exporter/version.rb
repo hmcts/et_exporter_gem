@@ -1,3 +1,3 @@
 module EtExporter
-  VERSION = '0.3.9-rc4'
+  VERSION = '0.3.9'
 end
