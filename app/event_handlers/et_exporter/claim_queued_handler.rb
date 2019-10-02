@@ -12,7 +12,8 @@ module EtExporter
         export_id: export.id,
         external_data: {},
         state: 'queued',
-        percent_complete: nil
+        percent_complete: 0,
+        message: 'Queued for export from API'
       }
       event_service.publish('ClaimExportFeedbackReceived', event_data.to_json)
     end
