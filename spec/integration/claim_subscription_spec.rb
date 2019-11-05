@@ -4,9 +4,9 @@ RSpec.describe 'Claim Event Subscription - hook into main system' do
   
   it 'enqueues the correct worker class' do
     #  Arrange - Setup input data
-    claim = build(:claim, :default)
+    claim = create(:claim, :default)
     system = build(:external_system, :ccd, :for_all_offices)
-    export = build(:export, external_system: system, resource: claim)
+    export = create(:export, external_system: system, resource: claim)
     
     # Act - publish the event as the application would
     Rails.application.event_service.publish('ClaimQueuedForExport', export)
@@ -16,9 +16,9 @@ RSpec.describe 'Claim Event Subscription - hook into main system' do
   end
   
   context 'A claim with a single claimant, respondent and representative.  With employment details' do
-    let(:claim) { build(:claim, :default) }
+    let(:claim) { create(:claim, :default) }
     let(:system) { build(:external_system, :ccd) }
-    let(:export) { build(:export, external_system: system, resource: claim) }
+    let(:export) { create(:export, external_system: system, resource: claim) }
     it 'provides json matching the schema as the single argument' do
       # Act - publish the event as the application would
       Rails.application.event_service.publish('ClaimQueuedForExport', export)
@@ -49,9 +49,9 @@ RSpec.describe 'Claim Event Subscription - hook into main system' do
 
   # Vary the respondents
   context 'A claim with a single claimant, 2 respondents and a representative.  With employment details' do
-    let(:claim) { build(:claim, :default, number_of_respondents: 2) }
+    let(:claim) { create(:claim, :default, number_of_respondents: 2) }
     let(:system) { build(:external_system, :ccd) }
-    let(:export) { build(:export, external_system: system, resource: claim) }
+    let(:export) { create(:export, external_system: system, resource: claim) }
     it 'provides json matching the schema as the single argument' do
       # Act - publish the event as the application would
       Rails.application.event_service.publish('ClaimQueuedForExport', export)
@@ -74,9 +74,9 @@ RSpec.describe 'Claim Event Subscription - hook into main system' do
   
   # Vary the representative
   context 'A claim with a single claimant, a respondent and no representative.  With employment details' do
-    let(:claim) { build(:claim, :default, has_representative: false) }
+    let(:claim) { create(:claim, :default, has_representative: false) }
     let(:system) { build(:external_system, :ccd) }
-    let(:export) { build(:export, external_system: system, resource: claim) }
+    let(:export) { create(:export, external_system: system, resource: claim) }
     it 'provides json matching the schema as the single argument' do
       # Act - publish the event as the application would
       Rails.application.event_service.publish('ClaimQueuedForExport', export)
@@ -96,9 +96,9 @@ RSpec.describe 'Claim Event Subscription - hook into main system' do
 
   # Vary the claimants
   context 'A claim with a multiple claimants, single respondent and representative.  With employment details' do
-    let(:claim) { build(:claim, :default, number_of_claimants: 2) }
+    let(:claim) { create(:claim, :default, number_of_claimants: 2) }
     let(:system) { build(:external_system, :ccd) }
-    let(:export) { build(:export, external_system: system, resource: claim) }
+    let(:export) { create(:export, external_system: system, resource: claim) }
     it 'provides json matching the schema as the single argument' do
       # Act - publish the event as the application would
       Rails.application.event_service.publish('ClaimQueuedForExport', export)
@@ -120,9 +120,9 @@ RSpec.describe 'Claim Event Subscription - hook into main system' do
   end
 
   context 'A claim with a multiple partial claimants from spreadsheet, single respondent and representative.  With employment details' do
-    let(:claim) { build(:claim, :default, number_of_claimants: 2, secondary_claimant_traits: [:minimal]) }
+    let(:claim) { create(:claim, :default, number_of_claimants: 2, secondary_claimant_traits: [:minimal]) }
     let(:system) { build(:external_system, :ccd) }
-    let(:export) { build(:export, external_system: system, resource: claim) }
+    let(:export) { create(:export, external_system: system, resource: claim) }
     it 'provides json matching the schema as the single argument' do
       # Act - publish the event as the application would
       Rails.application.event_service.publish('ClaimQueuedForExport', export)
@@ -145,9 +145,9 @@ RSpec.describe 'Claim Event Subscription - hook into main system' do
 
   # Vary the employment details
   context 'A claim with a single claimant, respondent and representative.  Without employment details' do
-    let(:claim) { build(:claim, :default, :without_employment_details) }
+    let(:claim) { create(:claim, :default, :without_employment_details) }
     let(:system) { build(:external_system, :ccd) }
-    let(:export) { build(:export, external_system: system, resource: claim) }
+    let(:export) { create(:export, external_system: system, resource: claim) }
     it 'provides json matching the schema as the single argument' do
       # Act - publish the event as the application would
       Rails.application.event_service.publish('ClaimQueuedForExport', export)
@@ -166,9 +166,9 @@ RSpec.describe 'Claim Event Subscription - hook into main system' do
   end
 
   context 'A claim with a single claimant, respondent and representative.  With employment details - working notice period' do
-    let(:claim) { build(:claim, :default, :with_employment_details_notice_period) }
+    let(:claim) { create(:claim, :default, :with_employment_details_notice_period) }
     let(:system) { build(:external_system, :ccd) }
-    let(:export) { build(:export, external_system: system, resource: claim) }
+    let(:export) { create(:export, external_system: system, resource: claim) }
     it 'provides json matching the schema as the single argument' do
       # Act - publish the event as the application would
       Rails.application.event_service.publish('ClaimQueuedForExport', export)
@@ -187,9 +187,9 @@ RSpec.describe 'Claim Event Subscription - hook into main system' do
   end
 
   context 'A claim with a single claimant, respondent and representative.  With employment details - terminated' do
-    let(:claim) { build(:claim, :default, :with_employment_details_terminated) }
+    let(:claim) { create(:claim, :default, :with_employment_details_terminated) }
     let(:system) { build(:external_system, :ccd) }
-    let(:export) { build(:export, external_system: system, resource: claim) }
+    let(:export) { create(:export, external_system: system, resource: claim) }
     it 'provides json matching the schema as the single argument' do
       # Act - publish the event as the application would
       Rails.application.event_service.publish('ClaimQueuedForExport', export)

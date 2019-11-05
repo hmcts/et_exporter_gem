@@ -133,6 +133,17 @@ ActiveRecord::Schema.define(version: 2019_06_18_153701) do
     t.index ["primary_respondent_id"], name: "index_claims_on_primary_respondent_id"
   end
 
+  create_table "export_events", force: :cascade do |t|
+    t.bigint "export_id", null: false
+    t.string "state"
+    t.uuid "uuid"
+    t.jsonb "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "percent_complete"
+    t.string "message"
+    t.index ["export_id"], name: "index_export_events_on_export_id"
+  end
 
   create_table "exports", force: :cascade do |t|
     t.bigint "resource_id"
@@ -143,6 +154,10 @@ ActiveRecord::Schema.define(version: 2019_06_18_153701) do
     t.datetime "updated_at", null: false
     t.string "resource_type"
     t.bigint "external_system_id", null: false
+    t.string "state", default: "created"
+    t.jsonb "external_data", default: {}, null: false
+    t.integer "percent_complete", default: 0, null: false
+    t.string "message"
     t.index ["external_system_id"], name: "index_exports_on_external_system_id"
     t.index ["resource_id"], name: "index_exports_on_resource_id"
   end
