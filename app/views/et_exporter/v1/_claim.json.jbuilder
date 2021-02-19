@@ -4,30 +4,30 @@ json.(claim, :is_unfair_dismissal, :office_code, :other_claim_details, :other_kn
 json.(claim, :pay_claims, :send_claim_to_whistleblowing_entity, :submission_channel, :submission_reference)
 if claim.employment_details.present?
   json.employment_details do
-    json.partial! "et_exporter/v1/employment_details.json.jbuilder", employment: claim.employment_details
+    json.partial! "et_exporter/v1/employment_details", employment: claim.employment_details, formats: [:json]
   end
 else
   json.employment_details({})
 end
 json.primary_claimant do
-  json.partial! "et_exporter/v1/primary_claimant.json.jbuilder", claimant: claim.primary_claimant
+  json.partial! "et_exporter/v1/primary_claimant", claimant: claim.primary_claimant, formats: [:json]
 end
 json.secondary_claimants do
-  json.partial! "et_exporter/v1/claimant.json.jbuilder", collection: claim.secondary_claimants, as: :claimant
+  json.partial! "et_exporter/v1/claimant", collection: claim.secondary_claimants, as: :claimant, formats: [:json]
 end
 json.primary_respondent do
-  json.partial! "et_exporter/v1/respondent.json.jbuilder", respondent: claim.primary_respondent
+  json.partial! "et_exporter/v1/respondent", respondent: claim.primary_respondent, formats: [:json]
 end
 json.secondary_respondents do
-  json.partial! "et_exporter/v1/respondent.json.jbuilder", collection: claim.secondary_respondents, as: :respondent
+  json.partial! "et_exporter/v1/respondent", collection: claim.secondary_respondents, as: :respondent, formats: [:json]
 end
 if claim.primary_representative.present?
   json.primary_representative do
-    json.partial! "et_exporter/v1/representative.json.jbuilder", representative: claim.primary_representative
+    json.partial! "et_exporter/v1/representative", representative: claim.primary_representative, formats: [:json]
   end
 else
   json.primary_representative nil
 end
 json.uploaded_files do
-  json.partial! "et_exporter/v1/uploaded_file.json.jbuilder", collection: claim.uploaded_files, as: :uploaded_file
+  json.partial! "et_exporter/v1/uploaded_file", collection: claim.uploaded_files, as: :uploaded_file, formats: [:json]
 end

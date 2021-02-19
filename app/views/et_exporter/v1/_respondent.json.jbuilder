@@ -3,11 +3,11 @@ json.(respondent, :address_telephone_number, :alt_phone_number, :contact, :conta
 json.(respondent,  :disability, :disability_information, :dx_number, :email_address, :employment_at_site_number, :fax_number)
 json.(respondent, :organisation_employ_gb, :organisation_more_than_one_site, :work_address_telephone_number)
 json.address do
-  json.partial! "et_exporter/v1/address.json.jbuilder", address: respondent.address
+  json.partial! "et_exporter/v1/address", address: respondent.address, formats: [:json]
 end
 if respondent.work_address.present?
   json.work_address do
-    json.partial! "et_exporter/v1/address.json.jbuilder", address: respondent.work_address
+    json.partial! "et_exporter/v1/address", address: respondent.work_address, formats: [:json]
   end
 else
   json.work_address nil

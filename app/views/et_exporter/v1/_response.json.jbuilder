@@ -3,15 +3,15 @@ json.queried_hours response.queried_hours.to_f
 json.queried_pay_before_tax response.queried_pay_before_tax.to_f
 json.queried_take_home_pay response.queried_take_home_pay.to_f
 json.respondent do
-  json.partial! "et_exporter/v1/respondent.json.jbuilder", respondent: response.respondent
+  json.partial! "et_exporter/v1/respondent", respondent: response.respondent, formats: [:json]
 end
 if response.representative.present?
   json.representative do
-    json.partial! "et_exporter/v1/representative.json.jbuilder", representative: response.representative
+    json.partial! "et_exporter/v1/representative", representative: response.representative, formats: [:json]
   end
 else
   json.representative nil
 end
 json.uploaded_files do
-  json.partial! "et_exporter/v1/uploaded_file.json.jbuilder", collection: response.uploaded_files, as: :uploaded_file
+  json.partial! "et_exporter/v1/uploaded_file", collection: response.uploaded_files, as: :uploaded_file, formats: [:json]
 end
