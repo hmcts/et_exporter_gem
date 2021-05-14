@@ -11,6 +11,12 @@ FactoryBot.define do
       file_to_attach { { content_type: 'application/pdf', filename: File.absolute_path('../fixtures/example.pdf', __dir__) } }
     end
 
+    trait :example_acas_pdf do
+      filename { 'acas_Naughty Boy.pdf' }
+      checksum { 'ee2714b8b731a8c1e95dffaa33f89728' }
+      file_to_attach { { content_type: 'application/pdf', filename: File.absolute_path('../fixtures/example.pdf', __dir__) } }
+    end
+
     trait :example_claim_rtf do
       filename { 'et1_attachment_first_last.rtf' }
       checksum { 'ee2714b8b731a8c1e95dffaa33f89728' }
