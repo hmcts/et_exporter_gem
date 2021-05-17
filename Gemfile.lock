@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    et_exporter (0.4.7)
+    et_exporter (0.4.8)
       jbuilder (~> 2.9, >= 2.9.1)
       pg
       rails (>= 5.2.3)
