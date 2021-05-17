@@ -1,7 +1,7 @@
 require 'sidekiq'
 module EtExporter
   class ClaimFilesAddedHandler
-    def handle(export_id, export_external_data, files, event_service: Rails.application.event_service)
+    def handle(export, export_external_data, files, event_service: Rails.application.event_service)
       json = EtExporter::ApplicationController.render('et_exporter/v1/update_claim/files_added', locals: { files: files, export: export, system: export.external_system }, formats: [:json])
       jid = client_push('class' => '::EtExporter::ExportClaimUpdateWorker', 'args' => [json], 'queue' => export.external_system.export_queue)
       event_data = {
@@ -9,7 +9,7 @@ module EtExporter
           jid: jid,
           bid: nil,
         },
-        export_id: export_id,
+        export_id: export.id,
         external_data: export_external_data,
         state: 'queued',
         percent_complete: 0,
