@@ -19,6 +19,17 @@
         "configurations": {"type": "array", "items": {"$ref":  "#/definitions/external_system_config"}}
       }
     },
+    "external_data": {
+      "description": "The external data of the export to update",
+      "example": {},
+      "type": "object",
+      "required": ["case_id", "case_type_id", "case_reference"],
+      "properties": {
+        "case_id": { "type": "string" },
+        "case_type_id": { "type": "string" },
+        "case_reference": { "type": "string" }
+      }
+    },
     "external_system_config": {
       "type": "object",
       "required": ["key", "value"],
@@ -266,6 +277,7 @@
     },
     "resource_type": { "type": "string", "enum": ["Claim"] },
     "external_system": { "$ref": "#/definitions/external_system" },
-    "resource": { "$ref": "#/definitions/claim"}
+    "resource": { "$ref": "#/definitions/claim"},
+    "external_data": {"$ref":  "#/definitions/external_data"}
   }
 }

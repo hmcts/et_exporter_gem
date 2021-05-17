@@ -16,7 +16,7 @@ RSpec.describe 'Claim Update - Adding Files Event Subscription - hook into main 
     it 'enqueues the correct worker class' do
 
       # Act - publish the event as the application would
-      Rails.application.event_service.publish('ExportedClaimFilesAdded', export, extra_files)
+      Rails.application.event_service.publish('ExportedClaimFilesAdded', export, { 'case_id' => '123', 'case_reference' => '1234', 'case_type_id' => '12345' }, extra_files)
 
       # Assert - Ensure the correct class is used
       expect(Sidekiq::Worker.jobs).to include a_hash_including 'class' => '::EtExporter::ExportClaimUpdateWorker'
@@ -25,7 +25,7 @@ RSpec.describe 'Claim Update - Adding Files Event Subscription - hook into main 
 
     it 'provides json matching the schema as the single argument' do
       # Act - publish the event as the application would
-      Rails.application.event_service.publish('ExportedClaimFilesAdded', export, extra_files)
+      Rails.application.event_service.publish('ExportedClaimFilesAdded', export, { 'case_id' => '123', 'case_reference' => '1234', 'case_type_id' => '12345' }, extra_files)
 
       # Assert - Ensure the json data matches the schema
       expect(Sidekiq::Worker.jobs.first['args'].first).to match_json_schema('updated_claim')
