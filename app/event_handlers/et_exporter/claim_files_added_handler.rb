@@ -10,7 +10,7 @@ module EtExporter
           bid: nil,
         },
         export_id: export.id,
-        external_data: {},
+        external_data: export.external_data,
         state: 'queued',
         percent_complete: 0,
         message: 'Queued for export from API'
