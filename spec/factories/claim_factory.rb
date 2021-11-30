@@ -6,7 +6,7 @@ FactoryBot.define do
       has_representative { true }
       secondary_claimant_traits { [:default] }
     end
-    
+
     secondary_respondents { [] }
     secondary_claimants { [] }
 
@@ -36,7 +36,7 @@ FactoryBot.define do
       number_of_respondents { 1 }
     end
 
-    
+
     after(:build) do |claim, evaluator|
       claim.primary_claimant = build(:claimant, :default) if claim.primary_claimant.blank? && evaluator.number_of_claimants > 0
       claim.primary_respondent = build(:respondent, :default) if claim.primary_respondent.blank? && evaluator.number_of_respondents > 0
@@ -45,28 +45,28 @@ FactoryBot.define do
       claim.claimant_count += evaluator.number_of_claimants
       claim.primary_representative = build(:representative, :default) if claim.primary_representative.blank? && evaluator.has_representative
     end
-    
+
     trait :with_pdf_file do
       after(:build) do |claim, _evaluator|
-        claim.uploaded_files << build(:uploaded_file, :example_pdf)
+        claim.uploaded_files << build(:uploaded_file, :example_pdf, :system_file_scope)
       end
     end
 
     trait :with_acas_pdf_file do
       after(:build) do |claim, _evaluator|
-        claim.uploaded_files << build(:uploaded_file, :example_acas_pdf)
+        claim.uploaded_files << build(:uploaded_file, :example_acas_pdf, :system_file_scope)
       end
     end
 
     trait :with_rtf_file do
       after(:build) do |claim, _evaluator|
-        claim.uploaded_files << build(:uploaded_file, :example_claim_rtf)
+        claim.uploaded_files << build(:uploaded_file, :example_claim_rtf, :system_file_scope)
       end
     end
 
     trait :with_claimants_csv_file do
       after(:build) do |claim, _evaluator|
-        claim.uploaded_files << build(:uploaded_file, :example_claim_claimants_csv)
+        claim.uploaded_files << build(:uploaded_file, :example_claim_claimants_csv, :system_file_scope)
       end
     end
 
@@ -93,7 +93,7 @@ FactoryBot.define do
         }.stringify_keys
       end
     end
-    
+
     trait :with_employment_details_terminated do
       employment_details do
         {
@@ -117,7 +117,7 @@ FactoryBot.define do
         }.stringify_keys
       end
     end
-    
+
     trait :with_employment_details_notice_period do
       employment_details do
         {
@@ -141,7 +141,7 @@ FactoryBot.define do
         }.stringify_keys
       end
     end
-    
+
     trait :without_employment_details do
       employment_details do
         {}

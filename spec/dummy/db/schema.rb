@@ -239,6 +239,8 @@ ActiveRecord::Schema.define(version: 2019_06_18_153701) do
     t.datetime "updated_at", null: false
     t.string "import_file_url"
     t.string "import_from_key"
+    t.string "file_scope", default: "system"
+    t.index ["file_scope"], name: "index_uploaded_files_on_file_scope"
   end
 
   create_table "response_uploaded_files", force: :cascade do |t|

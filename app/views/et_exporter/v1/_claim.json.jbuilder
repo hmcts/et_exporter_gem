@@ -29,5 +29,5 @@ else
   json.primary_representative nil
 end
 json.uploaded_files do
-  json.partial! "et_exporter/v1/uploaded_file", collection: claim.uploaded_files, as: :uploaded_file, formats: [:json]
+  json.partial! "et_exporter/v1/uploaded_file", collection: claim.uploaded_files.system_file_scope, as: :uploaded_file, formats: [:json]
 end

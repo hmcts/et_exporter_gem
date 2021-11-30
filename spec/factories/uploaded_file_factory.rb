@@ -4,7 +4,7 @@ FactoryBot.define do
       upload_method { :url }
       file_to_attach { nil }
     end
-    
+
     trait :example_pdf do
       filename { 'et1_first_last.pdf' }
       checksum { 'ee2714b8b731a8c1e95dffaa33f89728' }
@@ -32,6 +32,15 @@ FactoryBot.define do
     trait :direct_upload do
       upload_method { :direct_upload }
     end
+
+    trait :user_file_scope do
+      file_scope { 'user' }
+    end
+
+    trait :system_file_scope do
+      file_scope { 'system' }
+    end
+
 
     after(:build) do |uploaded_file, evaluator|
       next if evaluator.file_to_attach.nil?
