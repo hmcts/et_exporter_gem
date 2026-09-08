@@ -32,5 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-rails', '~> 3.8', '>= 3.8.2'
   spec.add_development_dependency 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
   spec.add_development_dependency 'json_matchers', '~> 0.11.0'
-  spec.add_dependency 'sidekiq', '>= 5.2.7'
+  spec.add_development_dependency 'sidekiq', '>= 5.2.7'
 end
