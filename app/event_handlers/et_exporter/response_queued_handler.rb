@@ -1,4 +1,3 @@
-require 'sidekiq'
 module EtExporter
   class ResponseQueuedHandler
     def handle(export, use_active_job: Rails.application.config.try(:use_active_job))

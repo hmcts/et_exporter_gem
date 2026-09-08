@@ -1,4 +1,3 @@
-require 'sidekiq'
 module EtExporter
   class ClaimQueuedHandler
     def handle(export, event_service: Rails.application.event_service, use_active_job: Rails.application.config.try(:use_active_job))

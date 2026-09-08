@@ -1,4 +1,3 @@
-require 'sidekiq'
 module EtExporter
   class ClaimFilesAddedHandler
     def handle(export, export_external_data, files, event_service: Rails.application.event_service, use_active_job: Rails.application.config.try(:use_active_job))
